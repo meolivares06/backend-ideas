@@ -1,9 +1,9 @@
 const {Router} = require('express');
-
+const {authMiddleware} = require('../middlewares');
 module.exports = function({UserController}) {
     const router = Router();
 
-    router.get("/", UserController.getAll);
+    router.get("/", [authMiddleware], UserController.getAll);
     router.post("/", UserController.create);
     router.get("/:userId", UserController.get);
     router.patch("/:userId", UserController.update);

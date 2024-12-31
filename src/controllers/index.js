@@ -3,5 +3,6 @@ module.exports = {
     Home2Controller: require('./home2.controller'),
     UserController: require('./UserController'),
     IdeaController: require('./IdeaController'),
-    CommentController: require('./CommentController')
+    CommentController: require('./CommentController'),
+    AuthController: require('./auth.controller')
 }
