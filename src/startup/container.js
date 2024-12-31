@@ -4,12 +4,10 @@ const {createContainer, asClass, asValue, asFunction} = require('awilix');
 const config = require('../config');
 
 // services layer
-const {HomeService} = require('../services');
-const {Home2Service} = require('../services');
+const {HomeService, Home2Service, UserService, IdeaService, CommentService} = require('../services');
 
 // controllers layer
-const {HomeController} = require('../controllers');
-const {Home2Controller} = require('../controllers');
+const {HomeController, Home2Controller} = require('../controllers');
 
 // routes layer
 const {HomeRoutes, Home2Routes} = require('../routes/index.routes');
@@ -38,6 +36,9 @@ container.register({
     // services
     HomeService: asClass(HomeService).singleton(),
     Home2Service: asClass(Home2Service).singleton(),
+    UserService: asClass(UserService).singleton(),
+    IdeaService: asClass(IdeaService).singleton(),
+    CommentService: asClass(CommentService).singleton(),
     // controllers
     HomeController: asClass(HomeController.bind(HomeController)).singleton(),
     Home2Controller: asClass(Home2Controller.bind(Home2Controller)).singleton(),
