@@ -3,6 +3,9 @@ const {createContainer, asClass, asValue, asFunction} = require('awilix');
 // config layer
 const config = require('../config');
 
+// Models layer
+const {User, Idea, Comment} = require('../models');
+
 // services layer
 const {HomeService, Home2Service, UserService, IdeaService, CommentService} = require('../services');
 
@@ -10,11 +13,8 @@ const {HomeService, Home2Service, UserService, IdeaService, CommentService} = re
 const {HomeController, Home2Controller, UserController, IdeaController, CommentController} = require('../controllers');
 
 // routes layer
-const {HomeRoutes, Home2Routes} = require('../routes/index.routes');
+const {HomeRoutes, Home2Routes, UserRoutes, IdeaRoutes, CommentRoutes} = require('../routes/index.routes');
 const Routes = require('../routes');
-
-// Models layer
-const {userModel, ideaModel, commentModel} = require('../models');
 
 // Repositories layer
 const {UserRepository, IdeaRepository, CommentRepository} = require('../repositories');
@@ -30,9 +30,9 @@ container.register({
     IdeaRepository: asClass(IdeaRepository).singleton(),
     CommentRepository: asClass(CommentRepository).singleton(),
     // models
-    User: asValue(userModel),
-    Idea: asValue(ideaModel),
-    Comment: asValue(commentModel),
+    User: asValue(User),
+    Idea: asValue(Idea),
+    Comment: asValue(Comment),
     // services
     HomeService: asClass(HomeService).singleton(),
     Home2Service: asClass(Home2Service).singleton(),
@@ -48,6 +48,9 @@ container.register({
     // routes
     HomeRoutes: asFunction(HomeRoutes).singleton(),
     Home2Routes: asFunction(Home2Routes).singleton(),
+    UserRoutes: asFunction(UserRoutes).singleton(),
+    IdeaRoutes: asFunction(IdeaRoutes).singleton(),
+    CommentRoutes: asFunction(CommentRoutes).singleton(),
     // configurations
     router: asFunction(Routes).singleton(),
     config: asValue(config),

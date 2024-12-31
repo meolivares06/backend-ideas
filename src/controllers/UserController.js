@@ -4,6 +4,11 @@ class UserController {
         _userService = UserService;
     }
 
+    async create(req, res) {
+        const { body } = req;
+        const createdUser = await _userService.create(body);
+        return res.status(201).send(createdUser);
+    }
     async get(req, res) {
         const { userId } = req.params;
         const user = await _userService.get(userId);
