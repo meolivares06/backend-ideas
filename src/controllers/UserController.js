@@ -32,6 +32,12 @@ class UserController {
         const deletedUser = await _userService.delete(userId);
         return res.send(deletedUser);
     }
+
+    async getUserByUsername(req, res) {
+        const { userName } = req.params;
+        const user = await _userService.getUserByUsername(userName);
+        return res.send(user);
+    }
     /*async create(req, res) {
         const { body } = req;
         const createdUser = await _userService.create(body);

@@ -8,6 +8,7 @@ module.exports = function({UserController}) {
     router.get("/:userId", UserController.get);
     router.patch("/:userId", UserController.update);
     router.delete("/:userId", UserController.delete);
+    router.get("/:userName/user", UserController.getUserByUsername);
 
     return router;
 
