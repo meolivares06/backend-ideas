@@ -1,6 +1,7 @@
 const {UserRepository} = require('../../../src/repositories');
 const {User} = require('../../../src/models');
-let {UserModelMock: {user,users}} = require('../../mocks/user');
+const UserService = require('../../../src/services/user.service');
+let {UserModelMock: {user,users}, UserRepositoryMock} = require('../../mocks/user');
 
 
 describe("User Service Tests", () => {
@@ -9,32 +10,49 @@ describe("User Service Tests", () => {
     });
 
     it("Should find a user by id", async () => {
-        const _userRepository = new UserRepository({ User });
-        jest.spyOn(_userRepository, "get").mockResolvedValue(user);
+        const UserRepository = UserRepositoryMock;
+        UserRepository.get.mockReturnValue(user);
 
-        const expected = await _userRepository.get(user._id);
+        const _userService = new UserService({ UserRepository });
+        const expected = await _userService.get(user._id);
+
         expect(expected).toMatchObject(user);
-
-        // otra variante
-        /*_userRepository.get.mockReturnValue(user);
-         const _userService = new UserService({UserRepository});
-         const expected = await _userService.get(user._id);
-         expect(expected).toMatchObject(user)*/
     });
 
     it("Should find a user by username", async () => {
-        const _userRepository = new UserRepository({ User });
-        jest.spyOn(_userRepository, "getUserByUsername").mockResolvedValue(user);
+        const UserRepository = UserRepositoryMock;
+        UserRepository.getUserByUsername.mockReturnValue(user);
 
-        const expected = await _userRepository.getUserByUsername(user.username);
+        const _userService = new UserService({ UserRepository });
+        const expected = await _userService.getUserByUsername(user.username);
+
         expect(expected).toMatchObject(user);
     });
 
-    it("Should return the list of users", async () => {
-        const _userRepository = new UserRepository({ User });
-        jest.spyOn(_userRepository, "getAll").mockResolvedValue(users);
+    it("Should return a user collection", async () => {
+        const UserRepository = UserRepositoryMock;
+        UserRepository.getAll.mockReturnValue(users);
 
-        const expected = await _userRepository.getAll();
+        const _userService = new UserService({ UserRepository });
+        const expected = await _userService.getAll();
         expect(expected).toMatchObject(users);
+    });
+
+    it("Should update a user by id", async () => {
+        const UserRepository = UserRepositoryMock;
+        UserRepository.update.mockReturnValue(users);
+
+        const _userService = new UserService({ UserRepository });
+        const expected = await _userService.repository.update(user._id, user);
+        expect(expected).toMatchObject(users);
+    });
+
+    it("Should delete a user by id", async () => {
+        const UserRepository = UserRepositoryMock;
+        UserRepository.delete.mockReturnValue(true);
+
+        const _userService = new UserService({ UserRepository });
+        const expected = await _userService.repository.delete(user._id);
+        expect(expected).toEqual(true);
     });
 })
